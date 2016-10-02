@@ -2,7 +2,15 @@ body {
     font-family: 'Karla';
     font-weight: 400;
     color: black;
+    height: 100%;
+}
 
+.container {
+    height: 100%;
+}
+
+html {
+    height: 100%;
 }
 
 ul {
@@ -22,6 +30,10 @@ a, a:visited {
 .container h1 {
     margin-top: 50px;
     font-weight: 800;
+}
+
+.container .top-icon {
+    margin-top: 50px;
 }
 
 .container {
@@ -236,7 +248,7 @@ Widget Page
 
 .widget-list, .widget-icon {
     list-style-type: none;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .widget-icon li {
