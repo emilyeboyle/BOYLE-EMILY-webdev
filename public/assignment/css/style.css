@@ -1,7 +1,281 @@
-input.form-control {
-    margin-bottom: 5px;
+body {
+    font-family: 'Karla';
+    font-weight: 400;
+    color: black;
+
 }
 
-body {
-    padding-top: 36px;
+ul {
+    padding: 0px;
+    margin: 0px;
 }
+
+a:hover {
+    text-decoration: none;
+}
+
+a, a:visited {
+    /*color: black;*/
+    text-decoration: none;
+}
+
+.container h1 {
+    margin-top: 50px;
+    font-weight: 800;
+}
+
+.container {
+    margin-bottom: 50px;
+}
+
+.centered {
+    text-align: center;
+}
+
+.btn-form a:visited {
+    color: white !important;
+}
+
+.site-list-pane {
+    height: 100%;
+    border-right: 1px solid gray;
+}
+
+/**
+-------------
+Input Styling
+-------------
+**/
+
+input[type="text"] {
+    background-color: transparent;
+    display: block;
+    margin: 0;
+    width: 100%;
+    font-family: sans-serif;
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    font-family: 'Karla';
+    outline: none;
+    border-bottom: solid 2px #c9c9c9;
+    transition: border 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="text"].focus {
+    border-bottom: solid 2px gray;
+}
+
+input[type="text"], textarea {
+    outline: none;
+    box-shadow: none !important;
+}
+
+input[type="email"] {
+    background-color: transparent;
+    display: block;
+    margin: 0;
+    width: 100%;
+    font-family: sans-serif;
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    font-family: 'Karla';
+    outline: none;
+    border-bottom: solid 2px #c9c9c9;
+    transition: border 0.2s;
+}
+
+input[type="email"]:focus,
+input[type="email"].focus {
+    border-bottom: solid 2px gray;
+}
+
+input[type="email"], textarea {
+    outline: none;
+    box-shadow: none !important;
+}
+
+input[type="password"] {
+    background-color: transparent;
+    display: block;
+    margin: 0;
+    width: 100%;
+    font-family: sans-serif;
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    font-family: 'Karla';
+    outline: none;
+    border-bottom: solid 2px #c9c9c9;
+    transition: border 0.2s;
+}
+
+textarea {
+    border-bottom: solid 2px #c9c9c9 !important;
+}
+
+* {
+    border-radius: 0 !important;
+}
+
+input[type="password"]:focus,
+input[type="password"].focus {
+    border-bottom: solid 2px gray;
+}
+
+input[type="password"], textarea {
+    outline: none;
+    box-shadow: none !important;
+}
+
+.form-control {
+    outline: none;
+    border: none;
+}
+
+.form-actions {
+    margin: 0;
+    background-color: transparent;
+    text-align: center;
+}
+
+text:focus, input:focus {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.centered-form .btn-form {
+    width: 50%;
+    margin: auto;
+}
+
+@media only screen and (max-width: 650px) {
+    .btn-form {
+        width: 100%;
+    }
+}
+
+/**
+-------------
+Navbar Styling
+-------------
+**/
+
+.navbar-default {
+    background-color: #f4f4f4;
+    border: none;
+    height: 50px;
+
+}
+
+.navbar-right {
+    margin-right: auto;
+}
+
+nav .glyphicon {
+    color: black;
+}
+
+.navbar-brand {
+    font-weight: 800;
+    color: #ff1717 !important;
+}
+
+.user-icon {
+    margin-top: 15px;
+}
+
+/**
+-------------
+Websites Page
+-------------
+**/
+
+.site-list, .site-icon {
+    list-style-type: none;
+    margin-bottom: 30px;
+}
+
+.site-icon li {
+    display: inline;
+}
+
+.site-icon:after {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 90%;
+    margin: 10px;
+    background: #f4f4f4;
+}
+
+/**
+-------------
+Widget Page
+-------------
+**/
+
+.widget-title {
+    text-transform: uppercase;
+    margin-left: 0;
+}
+
+.widget-image {
+    max-height: 300px;
+    max-width: 100%;
+}
+
+.widget-video {
+    width: 560px;
+    height: 315px;
+    max-width: 100%;
+}
+
+.widget-list, .widget-icon {
+    list-style-type: none;
+    margin-bottom: 30px;
+}
+
+.widget-icon li {
+    display: inline-block;
+}
+
+.widget-content {
+    width: 80%;
+
+}
+
+.widget-chooser-list {
+    list-style-type: none;
+}
+
+.widget-chooser-list li:after {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 90%;
+    margin: 10px;
+    background: #f4f4f4;
+}
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0px;
+    padding: 0;
+    /*font-size: 20px;*/
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
