@@ -1,0 +1,26 @@
+<div class="container">
+    <div ng-show="model.error" class="alert alert-danger" role="alert">
+        {{model.error}}
+    </div>
+    <h1 class="centered">Login</h1>
+    <form class="centered-form">
+        <fieldset class="form-group">
+            <input ng-model="username"
+                   type="text"
+                   class="form-control"
+                   placeholder="username"/>
+        </fieldset>
+        <fieldset class="form-group">
+            <input ng-model="password"
+                   type="password"
+                   class="form-control"
+                   placeholder="password"/>
+        </fieldset>
+    </form>
+    <div class="btn-form">
+        <a class="btn btn-primary btn-block"
+           ng-click="model.login(username, password)">Login</a>
+        <a class="btn btn-success btn-block"
+           href="#/register">Register</a>
+    </div>
+</div>

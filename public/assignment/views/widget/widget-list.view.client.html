@@ -1,0 +1,58 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <p class="navbar-text pull-left">
+            <a href="#/user/{{model.userId}}/website/{{model.wid}}/page"
+               class="glyphicon glyphicon-chevron-left"></a>
+        </p>
+        <p class="navbar-text pull-right">
+            <a href="#/user/{{model.userId}}/website/{{model.wid}}/page/{{model.pid}}/widget/new"
+               class="glyphicon glyphicon-plus"></a>
+        </p>
+        <div class="navbar-header">
+            <a class="navbar-brand profile-websites-navbar-text">Widgets</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div ng-switch="widget.widgetType"
+         ng-repeat="widget in model.widgets">
+        <a href="#/user/{{model.userId}}/website/{{model.wid}}/page/{{model.pid}}/widget/{{widget._id}}"
+           class="pull-right">
+            <span class="glyphicon glyphicon-cog"></span>
+        </a>
+        <div ng-switch="widget.size" ng-switch-when="HEADER">
+            <h1 ng-switch-when="1">{{widget.text}}</h1>
+            <h2 ng-switch-when="2">{{widget.text}}</h2>
+            <h3 ng-switch-when="3">{{widget.text}}</h3>
+            <h4 ng-switch-when="4">{{widget.text}}</h4>
+            <h5 ng-switch-when="5">{{widget.text}}</h5>
+            <h6 ng-switch-when="6">{{widget.text}}</h6>
+        </div>
+        <div ng-switch-when="YOUTUBE">
+            <iframe width="560" height="315"
+                    ng-src="{{model.checkSafeYouTubeUrl(widget.url)}}"
+                    frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div ng-switch-when="IMAGE">
+            image
+        </div>
+        <div ng-switch-when="HTML" ng-bind-html="model.checkSafeHtml(widget.text)">
+        </div>
+    </div>
+
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="navbar-footer">
+        <p class="navbar-text pull-left">
+            <a href="#" class="glyphicon glyphicon-play"></a>
+        </p>
+        <p class="navbar-text pull-left">
+            <a href="#" class="glyphicon glyphicon-eye-open"></a>
+        </p>
+        <p class="navbar-text pull-right">
+            <a href="#/user/{{modeluserId}}" class="glyphicon glyphicon-user"></a>
+        </p>
+    </div>
+</nav>
