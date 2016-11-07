@@ -10,12 +10,15 @@
         vm.login = login;
 
         function login(username, password) {
-            var user = UserService.findUserByCredentials(username, password);
-            if (user === null) {
-                vm.error = "No such user";
-            } else {
-                $location.url("/user/" + user._id);
-            }
+            var promise = UserService.findUserByCredentials(username, password);
+            promise
+                .success(function (user) {
+                    if (user === '0') {
+                        vm.error = "No such user";
+                    } else {
+                        $location.url("/user/" + user._id);
+                    }
+                })
         }
     }
 
@@ -27,17 +30,23 @@
             if (username === undefined || password === undefined || password2 === undefined) {
                 vm.error = "Fields cannot be left blank"
             } else if (password !== password2) {
-                vm.error ="Passwords must match"
+                vm.error = "Passwords must match"
             } else {
                 var user = {
-                    _id: Date.now(),
                     username: username,
                     password: password,
                     firstName: "first",
                     lastName: "last"
                 };
-                UserService.createUser(user);
-                $location.url("/user/" + user._id);
+                var promise = UserService.createUser(user);
+                promise
+                    .success(function (user) {
+                        $location.url("/user/" + user._id);
+                    })
+                    .error(function (error) {
+
+                    });
+
             }
         }
     }
@@ -45,11 +54,39 @@
     function ProfileController($routeParams, UserService) {
         var vm = this;
         vm.userId = parseInt($routeParams.uid);
-        var user = UserService.findUserById(vm.userId);
+        vm.updateUser = updateUser;
+        vm.deleteUser = deleteUser;
 
-        if (user != null) {
-            vm.user = user;
+        function init() {
+            UserService
+                .findUserById(vm.userId)
+                .success(function (user) {
+                    if (user != '0') {
+                        vm.user = user;
+                        console.log(vm.user);
+                    }
+                })
+                .error(function () {
+
+                });
+        }
+
+        init();
+        function updateUser() {
+            UserService.updateUser(vm.user);
+        }
+
+        function deleteUser() {
+            UserService
+                .deleteUser(vm.user._id)
+                .success(function () {
+                    $location.url("/login");
+                })
+                .error(function () {
+
+                });
         }
     }
+
 
 })();

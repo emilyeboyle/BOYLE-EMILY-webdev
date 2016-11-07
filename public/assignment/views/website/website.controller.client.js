@@ -9,7 +9,11 @@
         var vm = this;
         vm.userId = parseInt($routeParams['uid']);
         function init() {
-            vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+            var promise = WebsiteService.findWebsitesByUser(vm.userId);
+            promise
+                .success(function (websites) {
+                    vm.websites = websites;
+                });
         }
 
         init();
@@ -21,9 +25,12 @@
         vm.userId = parseInt($routeParams['uid']);
         vm.addWebsite = addWebsite;
         function init() {
-            vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+            var promise = WebsiteService.findWebsitesByUser(userId);
+            promise
+                .success(function (websites) {
+                    vm.websites = websites;
+                });
         }
-
 
         init();
 
@@ -37,9 +44,11 @@
                     description: description,
                     developerId: vm.userId
                 };
-                WebsiteService.createWebsite(vm.userId, website);
-
-                $location.url("/user/" + vm.userId + "/website");
+                WebsiteService
+                    .createWebsite(userId, website)
+                    .success(function () {
+                        $location.url("/user/" + userId + "/website");
+                    });
             }
         }
 
@@ -51,39 +60,54 @@
         var websiteId = parseInt($routeParams.wid);
         vm.edit = editWebsite;
         vm.delete = deleteWebsite;
-
         function init() {
-            vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
-            vm.website = WebsiteService.findWebsiteById(websiteId);
+            var promise = WebsiteServce.findWebsitesByUser(vm.userId);
+            promise
+                .success(function (websites) {
+                    vm.websites = websites;
+                });
+            var promise2 = WebsiteService.findWebsiteById(websiteId);
+            promise2
+                .success(function (website) {
+                    vm.website = website;
+                });
         }
 
         init();
+
         function editWebsite(siteName, description) {
-            var currentWebsite = WebsiteService.findWebsiteById(websiteId);
             if (siteName === undefined && description === undefined) {
                 vm.error = "Fields cannot be left blank"
             } else {
                 if (siteName === undefined) {
-                    siteName = currentWebsite.name;
+                    siteName = vm.website.name;
                 } else if (description === undefined) {
-                    description = currentWebsite.description;
+                    description = vm.website.description;
                 }
 
                 var website = {
-                    _id: currentWebsite._id,
+                    _id: vm.website._id,
                     name: siteName,
                     description: description,
                     developerId: vm.userId
                 };
-                WebsiteService.updateWebsite(websiteId, website);
+                WebsiteService
+                    .updateWebsite(websiteId, website)
+                    .success(function () {
+                        $location.url("/user/" + vm.userId + "/website");
+                    });
 
-                $location.url("/user/" + vm.userId + "/website");
+
             }
         }
 
         function deleteWebsite() {
-            WebsiteService.deleteWebsite(vm.website);
-            $location.url("/user/" + vm.userId + "/website");
+            WebsiteService
+                .deleteWebsite(vm.website)
+                .success(function () {
+                    $location.url("/user/" + vm.userId + "/website");
+                });
+
         }
 
 

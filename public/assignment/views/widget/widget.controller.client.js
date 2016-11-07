@@ -15,7 +15,12 @@
         vm.checkSafeYouTubeUrl = checkSafeYouTubeUrl;
 
         function init() {
-            vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
+            var promise = WidgetService.findWidgetsByPageId(vm.pid);
+            promise
+                .success(function (widgets) {
+                    vm.widgets = widgets;
+
+                });
         }
 
         init();
@@ -33,7 +38,7 @@
 
     }
 
-    function NewWidgetController() {
+    function NewWidgetController($routeParams, $location, WidgetService) {
         var vm = this;
         vm.userId = $routeParams['uid'];
         vm.wid = $routeParams['wid'];
@@ -41,42 +46,86 @@
         vm.wgid = $routeParams['wgid'];
         vm.addWidget = addWidget;
         function init() {
-            vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+            var promise = WebsiteService.findWebsitesByUser(vm.userId);
+            promise
+                .success(function (widgets) {
+                    vm.widgets = widgets;
+                });
         }
-
 
         init();
 
-        function addWidget(pageId, description) {
-            if (siteName === undefined || description === undefined) {
+        function addWidget(widgetId, description) {
+            if (widgetId === undefined || description === undefined) {
                 vm.error = "Fields cannot be left blank"
             } else {
-                var website = {
+                var widget = {
                     _id: Date.now(),
-                    name: siteName,
+                    // widgetType: siteName,
                     description: description,
-                    developerId: vm.userId
+                    websiteId: vm.wid
                 };
-                WebsiteService.createWebsite(vm.userId, website);
+                WidgetService
+                    .createWidget(vm.pid, widget)
+                    .success(function () {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.wid + "/page/" + "pid" + "/widget");
+                    })
 
-                $location.url("/user/" + vm.userId + "/website");
             }
         }
     }
 
-    function EditWidgetController($routeParams,
-                                  WidgetService, $sce) {
+    function EditWidgetController($routeParams, WidgetService, $sce) {
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
         vm.wgid = $routeParams.wgid;
+        vm.editWidget = editWidget;
+        vm.deleteWidget = deleteWidget;
 
         function init() {
-            vm.widget = WidgetService.findWidgetById(vm.wgid);
+            var promise = WidgetService.findWidgetById(vm.wgid);
+            promise
+                .success(function (widgets) {
+                    vm.widget = widget;
+                })
         }
 
         init();
+
+        function editWidget(widgetName, description) {
+            if (widgetName === undefined && description === undefined) {
+                vm.error = "Fields cannot be left blank"
+            } else {
+                if (widgetName === undefined) {
+                    widgetName = vm.widget.name;
+                } else if (description === undefined) {
+                    description = vm.widget.description;
+                }
+
+                var widget = {
+                    _id: vm.widget._id,
+                    name: widgetName,
+                    description: description,
+                    developerId: vm.userId
+                };
+                WidgetService
+                    .updateWidget(vm.widget._id, widget)
+                    .success(function () {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.wid + "/page/" + "pid" + "/widget");
+                    });
+            }
+        }
+
+        function deleteWidget() {
+            WidgetService
+                .deleteWidget(vm.widget)
+                .success(function () {
+                    $location.url("/user/" + vm.userId + "/website/" + vm.wid + "/page/" + "pid" + "/widget");
+                });
+
+        }
     }
 
 })();

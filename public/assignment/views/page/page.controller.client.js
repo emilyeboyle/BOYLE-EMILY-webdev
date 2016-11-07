@@ -10,7 +10,11 @@
         vm.userId = parseInt($routeParams['uid']);
         vm.websiteId = parseInt($routeParams['wid']);
         function init() {
-            vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
+            var promise = PageService.findPageByWebsiteId(vm.websiteId);
+            promise
+                .success(function (pages) {
+                    vm.pages = pages;
+                });
         }
 
         init();
@@ -22,7 +26,11 @@
         vm.websiteId = parseInt($routeParams['wid']);
         vm.addPage = addPage;
         function init() {
-            vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
+            var promise = PageService.findPageByWebsiteId(vm.websiteId);
+            promise
+                .success(function (pages) {
+                    vm.pages = pages;
+                });
         }
 
         init();
@@ -32,15 +40,16 @@
                 vm.error = "Fields cannot be left blank"
             } else {
                 var page = {
-                        _id: Date.now(),
-                        name: pageName,
-                        title: pageTitle,
-                        websiteId: vm.websiteId
-                    }
-                    ;
-                PageService.createPage(vm.websiteId, page);
-
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                    _id: Date.now(),
+                    name: pageName,
+                    title: pageTitle,
+                    websiteId: vm.websiteId
+                };
+                PageService
+                    .createPage(vm.websiteId, page)
+                    .success(function () {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                    });
             }
         }
 
@@ -55,11 +64,20 @@
         vm.delete = deletePage;
 
         function init() {
-            vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
-            vm.page = PageService.findPageById(vm.pageId);
+            var promise = PageService.findPageByWebsiteId(vm.websiteId);
+            promise
+                .success(function (pages) {
+                    vm.pages = pages;
+                });
+            var promise2 = PagesService.findPageById(vm.pageId);
+            promise2
+                .success(function (page) {
+                    vm.page = page;
+                });
         }
 
         init();
+
         function editPage(pageName, title) {
             var currentPage = PageService.findPageById(vm.pageId);
             if (pageName === undefined && title === undefined) {
@@ -72,21 +90,29 @@
                 }
 
                 var page = {
-                    _id: currentPage._id,
-                    name: pageName,
-                    title: title,
-                    websiteId: vm.websiteId
-            }
-                ;
-                PageService.updatePage(vm.pageId, page);
+                        _id: currentPage._id,
+                        name: pageName,
+                        title: title,
+                        websiteId: vm.websiteId
+                    }
+                    ;
+                PageService
+                    .updatePage(vm.pageId, page)
+                    .success(function () {
+                        $location.url("/user/" + vm.userId + "/website");
+                    });
 
                 $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
             }
         }
 
         function deletePage() {
-            PageService.deletePage(vm.pageId);
-            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+            PageService
+                .deletePage(vm.pageId)
+                .success(function () {
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                });
+
         }
 
 
