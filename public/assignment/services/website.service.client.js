@@ -24,7 +24,7 @@
         return api;
 
         function createWebsite(userId, website) {
-            return $http.post("/api/user" + userId + "/website", website);
+            return $http.post("/api/user/" + userId + "/website", website);
             // website.developerId = userId;
             // websites.push(website);
         }

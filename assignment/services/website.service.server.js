@@ -19,12 +19,13 @@ module.exports = function (app, model) {
         // websites.push(website);
         // res.send(websites);
         websiteModel
-            .createWebsite(userId, website)
+            .createWebsiteForUser(userId, website)
             .then(
                 function (website) {
                     res.json(website);
                 },
                 function (error) {
+                    console.log("hi");
                     res.status(400).send(error);
                 }
             );
