@@ -19,6 +19,9 @@
                         $location.url("/user/" + user._id);
                     }
                 })
+                .error(function (user) {
+                    vm.error = "No such user";
+                })
         }
     }
 
@@ -60,15 +63,12 @@
         function init() {
             UserService
                 .findUserById(vm.userId)
-                .success(function (user) {
+                .then(function (user) {
                     if (user != '0') {
                         vm.user = user;
-                        console.log(vm.user);
                     }
                 })
-                .error(function () {
 
-                });
         }
 
         init();

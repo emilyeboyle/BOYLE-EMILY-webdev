@@ -8,11 +8,11 @@
             </div>
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">
-                    Website
+                    Edit Widget
                 </a>
             </div>
             <div class="navbar-text pull-right" style="margin-right: 27px;">
-                <a href="#/website/{{website._user}}new">
+                <a href="#">
                     <span class="glyphicon glyphicon-plus"></span>
                 </a>
             </div>
@@ -20,17 +20,19 @@
     </div>
 </nav>
 
-<ul class="list-group">
-    <li ng-repeat="website in model.websites" class="list-group-item">
-        <a href="#/user/{{website._user}}/website/{{website._id}}/page">
-            {{website.name}}
-        </a>
-        <a href="#/user/{{website._user}}/website/{{website._id}}" class="pull-right">
-            <span class="glyphicon glyphicon-cog"></span>
-            <span class="glyphicon glyphicon-play"></span>
-        </a>
-    </li>
-</ul>
+<div class="form-group">
+    <div ng-model="model.widget.text"
+         text-angular
+         ta-toolbar="[['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre', 'quote'],
+                      ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol', 'redo', 'undo', 'clear'],
+                      ['justifyLeft', 'justifyCenter', 'justifyRight', 'indent', 'outdent'],
+                      ['html', 'insertImage','insertLink', 'insertVideo', 'wordcount', 'charcount']]">
+    </div>
+</div>
+
+<a class="btn btn-danger btn-block"
+   ng-click="model.deleteWidget()"> Delete </a>
+
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">

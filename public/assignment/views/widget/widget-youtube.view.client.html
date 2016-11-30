@@ -12,24 +12,23 @@
     </div>
 </nav>
 
-
 <div class="container">
     <form>
         <div class="form-group">
             <label for="widgetName">Name</label>
-            <input type="text" class="form-control" id="widgetName" placeholder="Widget Name">
+            <input type="text" class="form-control" id="widgetName" placeholder="{{model.widget.name}}">
         </div>
         <div class="form-group">
             <label for="widgetText">Text</label>
-            <input type="text" class="form-control" id="widgetText" placeholder="Widget Text">
+            <input type="text" class="form-control" id="widgetText" placeholder="{{model.widget.text}}">
         </div>
         <div class="form-group">
             <label for="widgetURL">URL</label>
-            <input type="text" class="form-control" id="widgetURL" placeholder="Widget URL">
+            <input type="text" class="form-control" id="widgetURL" placeholder="{{model.widget.url}}">
         </div>
         <div class="form-group">
             <label for="widgetWidth">Width</label>
-            <input type="text" class="form-control" id="widgetWidth" placeholder="Widget Width">
+            <input type="text" class="form-control" id="widgetWidth" placeholder="{{model.widget.width}}">
         </div>
     </form>
     <div class="btn-form btn-file">

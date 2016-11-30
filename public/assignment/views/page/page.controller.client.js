@@ -64,7 +64,8 @@
         vm.delete = deletePage;
 
         function init() {
-            var promise = PageService.findPageByWebsiteId(vm.websiteId);
+            var promise = PageService
+                .findPageByWebsiteId(vm.websiteId);
             promise
                 .success(function (pages) {
                     vm.pages = pages;
