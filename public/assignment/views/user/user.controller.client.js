@@ -41,10 +41,13 @@
                     firstName: "first",
                     lastName: "last"
                 };
-                var promise = UserService.createUser(user);
+                var promise = UserService
+                    .createUser(user);
                 promise
-                    .success(function (user) {
-                        $location.url("/user/" + user._id);
+                    .success(function (newUser) {
+                        console.log(newUser);
+                        vm.user = newUser;
+                        $location.url("/user/" + newUser._id);
                     })
                     .error(function (error) {
 

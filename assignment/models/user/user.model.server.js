@@ -21,7 +21,9 @@ module.exports = function () {
 
 
     function createUser(user) {
-        return UserModel.create(user);
+        return UserModel.create(user, function(err,insertedUser){
+            console.log(insertedUser._id);
+        });
     }
 
     function findUserById(userId) {

@@ -26,8 +26,7 @@ module.exports = function (app, model) {
                 function (user) {
                     if (user) {
                         // res.status(400).send("Username already exists");
-                        res.json(user);
-                        return
+                        return res.json(user);
                     } else {
                         return UserModel.createUser(req.body);
                     }
@@ -46,7 +45,7 @@ module.exports = function (app, model) {
         UserModel
             .createUser(newUser)
             .then(
-                function (user) {
+                function (newUser) {
                     res.send(newUser);
                 },
                 function (error) {

@@ -25,7 +25,7 @@
         vm.userId = parseInt($routeParams['uid']);
         vm.addWebsite = addWebsite;
         function init() {
-            var promise = WebsiteService.findWebsitesByUser(userId);
+            var promise = WebsiteService.findWebsitesByUser(vm.userId);
             promise
                 .success(function (websites) {
                     vm.websites = websites;
@@ -45,9 +45,9 @@
                     developerId: vm.userId
                 };
                 WebsiteService
-                    .createWebsite(userId, website)
+                    .createWebsite(vm.userId, website)
                     .success(function () {
-                        $location.url("/user/" + userId + "/website");
+                        $location.url("/user/" + vm.userId + "/website");
                     });
             }
         }
