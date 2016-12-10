@@ -20,21 +20,22 @@ module.exports = function () {
 
     function createWebsiteForUser(userId, website) {
         website.userId = userId;
+        console.log(website);
         return WebsiteModel
-            .create(website)
-            .then(function (websiteObj) {
-                model.UserModel
-                    .findUserById(userId)
-                    .then(function (userObj) {
-                            websiteObj._user = userObj._id;
-                            websiteObj.save();
-                            userObj.websites.push(websiteObj);
-                            return userObj.save();
-                        },
-                        function (error) {
-                            console.log(error);
-                        });
-            })
+            .create(website);
+        // .then(function (websiteObj) {
+        //     model.UserModel
+        //         .findUserById(userId)
+        //         .then(function (userObj) {
+        //                 websiteObj._user = userObj._id;
+        //                 websiteObj.save();
+        //                 userObj.websites.push(websiteObj);
+        //                 return userObj.save();
+        //             },
+        //             function (error) {
+        //                 console.log(error);
+        //             });
+        // })
     }
 
     function findAllWebsitesForUser(userId) {

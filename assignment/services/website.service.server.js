@@ -23,9 +23,9 @@ module.exports = function (app, model) {
             .then(
                 function (website) {
                     res.json(website);
+
                 },
                 function (error) {
-                    console.log("hi");
                     res.status(400).send(error);
                 }
             );
